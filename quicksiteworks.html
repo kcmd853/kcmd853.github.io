@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickSiteWorks — Websites for Local Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #13212B;
+    --panel: #1C303D;
+    --panel-light: #24404F;
+    --paper: #F3EFE6;
+    --gold: #E7A93E;
+    --brick: #C24B3B;
+    --clay: #B8623F;
+    --leaf: #6E8B5E;
+    --text-soft: #C6D0D4;
+    --text-faint: #8CA0A8;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3 { font-family: 'Bitter', serif; margin: 0; color: var(--paper); }
+  a { color: inherit; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+  /* language toggle */
+  .es { display: none; }
+  body.lang-es .en { display: none; }
+  body.lang-es .es { display: inline; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { padding: 22px 0; }
+  .topbar .wrap { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 16px; }
+  .brand { font-family: 'Bitter', serif; font-weight: 700; font-size: 1.25rem; }
+  .brand span { color: var(--gold); }
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+  .topbar a.call {
+    font-size: 0.92rem; color: var(--text-soft); text-decoration: none;
+    border: 1px solid var(--panel-light); padding: 8px 16px; border-radius: 3px; white-space: nowrap;
+  }
+  .topbar a.call:hover { border-color: var(--gold); color: var(--gold); }
+  .lang-switch {
+    display: flex; border: 1px solid var(--panel-light); border-radius: 3px; overflow: hidden;
+  }
+  .lang-switch button {
+    background: none; border: none; color: var(--text-faint); font-family: 'Work Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600; padding: 7px 12px; cursor: pointer;
+  }
+  .lang-switch button.active { background: var(--gold); color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 56px 0 72px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(2.1rem, 4vw, 3rem); line-height: 1.15; font-weight: 800; }
+  .hero p.sub { margin-top: 20px; font-size: 1.08rem; color: var(--text-soft); max-width: 46ch; }
+  .hero .location { margin-top: 14px; font-size: 0.95rem; color: var(--text-faint); }
+  .cta-row { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-block; text-decoration: none; padding: 13px 24px; border-radius: 3px; font-weight: 600; font-size: 0.98rem; }
+  .btn-primary { background: var(--gold); color: var(--ink); }
+  .btn-primary:hover { background: #f0b657; }
+  .btn-ghost { border: 1px solid var(--panel-light); color: var(--text-soft); }
+  .btn-ghost:hover { border-color: var(--text-soft); color: var(--paper); }
+
+  .window { background: var(--panel); border: 1px solid var(--panel-light); border-radius: 6px; padding: 14px; position: relative; }
+  .window .chrome { display: flex; gap: 6px; margin-bottom: 12px; }
+  .window .chrome span { width: 9px; height: 9px; border-radius: 50%; background: var(--panel-light); }
+  .window .screen { background: var(--ink); border-radius: 4px; padding: 16px; }
+  .window .screen .block { background: var(--panel-light); border-radius: 3px; }
+  .window .screen .b1 { height: 46px; margin-bottom: 10px; background: linear-gradient(120deg, var(--brick), var(--gold)); opacity: 0.85; }
+  .window .screen .b2 { height: 12px; width: 70%; margin-bottom: 8px; }
+  .window .screen .b3 { height: 12px; width: 45%; margin-bottom: 16px; }
+  .window .screen .row { display: flex; gap: 8px; }
+  .window .screen .row .block { flex: 1; height: 38px; }
+  .tag { position: absolute; top: -14px; right: 20px; background: var(--brick); color: var(--paper); font-size: 0.78rem; padding: 5px 12px; border-radius: 3px; font-weight: 600; }
+
+  .scallop {
+    height: 22px;
+    background-image: radial-gradient(circle at 11px 0, transparent 12px, var(--panel) 13px);
+    background-size: 22px 22px; background-position: top; background-color: var(--ink);
+  }
+
+  section.panel { background: var(--panel); }
+  section { padding: 64px 0; }
+  .section-head { max-width: 52ch; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 700; }
+  .section-head p { color: var(--text-soft); margin-top: 12px; font-size: 1.02rem; }
+
+  /* ---------- Example browser mockup (upgraded) ---------- */
+  .example-frame {
+    background: var(--ink); border: 1px solid var(--panel-light); border-radius: 8px;
+    overflow: hidden; margin-bottom: 18px; box-shadow: 0 24px 60px -30px rgba(0,0,0,0.6);
+  }
+  .example-frame .bar {
+    background: var(--panel-light); padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .example-frame .bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
+  .example-frame .bar .url {
+    margin-left: 10px; background: var(--ink); color: var(--text-faint); font-size: 0.8rem;
+    padding: 4px 10px; border-radius: 3px; display: flex; align-items: center; gap: 6px;
+  }
+  .example-frame .body { padding: 0; }
+
+  .ehero {
+    position: relative; padding: 44px 32px; overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(255,255,255,0.10), transparent 45%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 26px),
+      linear-gradient(120deg, var(--clay) 0%, var(--brick) 45%, #8C3A2E 100%);
+  }
+  .ehero .rating {
+    position: absolute; top: 20px; right: 24px; background: rgba(19,33,43,0.85);
+    color: var(--gold); font-size: 0.82rem; font-weight: 600; padding: 6px 12px; border-radius: 20px;
+  }
+  .ehero h3 { color: var(--paper); font-size: 1.7rem; }
+  .ehero p.addr { color: rgba(243,239,230,0.85); margin: 8px 0 0; font-size: 0.92rem; }
+
+  .esplit { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .emenu, .ephotos { padding: 28px 32px; }
+  .emenu { border-right: 1px solid var(--panel-light); }
+  .emenu h4, .ephotos h4 {
+    font-family: 'Bitter', serif; font-size: 1.02rem; margin: 0 0 16px; color: var(--gold); font-weight: 700;
+  }
+  .menu-line {
+    display: flex; align-items: baseline; gap: 6px; font-size: 0.92rem; color: var(--text-soft); margin-bottom: 12px;
+  }
+  .menu-line .name { white-space: nowrap; color: var(--paper); }
+  .menu-line .fill { flex: 1; border-bottom: 1px dotted var(--panel-light); position: relative; top: -3px; }
+  .menu-line .price { white-space: nowrap; color: var(--gold); font-weight: 600; }
+
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .photo-card {
+    aspect-ratio: 4/3; border-radius: 5px; position: relative; overflow: hidden;
+    display: flex; align-items: flex-end; padding: 10px;
+  }
+  .photo-card span { font-size: 0.78rem; color: rgba(255,255,255,0.92); font-weight: 500; position: relative; z-index: 2; }
+  .photo-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.55), transparent 60%); z-index: 1; }
+  .p1 { background: linear-gradient(135deg, #D98A3D, #7A3A22); }
+  .p2 { background: linear-gradient(135deg, var(--leaf), #37502F); }
+  .p3 { background: linear-gradient(135deg, #C24B3B, #6E2A1F); }
+  .p4 { background: linear-gradient(135deg, #E7A93E, #9C5B22); }
+
+  .equote {
+    padding: 20px 32px; border-top: 1px solid var(--panel-light); background: rgba(0,0,0,0.12);
+    font-size: 0.9rem; color: var(--text-soft); font-style: italic;
+  }
+  .equote .stars { color: var(--gold); font-style: normal; margin-right: 6px; }
+
+  .efooter {
+    padding: 14px 32px; border-top: 1px solid var(--panel-light);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 0.85rem; color: var(--text-faint);
+  }
+
+  .example-caption { text-align: center; color: var(--text-faint); font-size: 0.88rem; margin-bottom: 44px; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feature { display: flex; gap: 12px; }
+  .feature svg { flex-shrink: 0; margin-top: 3px; }
+  .feature p { margin: 0; color: var(--text-soft); font-size: 0.95rem; }
+
+  /* Pricing */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .plan { background: var(--panel); border: 1px solid var(--panel-light); border-radius: 6px; padding: 26px; position: relative; }
+  .plan.recommended { border-color: var(--gold); }
+  .plan .note { color: var(--gold); font-size: 0.82rem; font-weight: 600; margin-bottom: 10px; }
+  .plan h3 { font-size: 1.15rem; }
+  .plan .price { font-family: 'Bitter', serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); margin: 12px 0 16px; }
+  .plan .price span { font-size: 0.88rem; color: var(--text-faint); font-family: 'Work Sans', sans-serif; font-weight: 400; }
+  .plan ul { padding-left: 18px; margin: 0; color: var(--text-soft); font-size: 0.88rem; }
+  .plan li { margin-bottom: 8px; }
+  .addon-note { margin-top: 22px; color: var(--text-faint); font-size: 0.9rem; }
+
+  .contact-box { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+  .contact-box .buttons { display: flex; flex-direction: column; gap: 12px; }
+  .contact-box .btn { text-align: center; }
+  .lang-note { margin-top: 16px; color: var(--text-faint); font-size: 0.9rem; }
+
+  footer {
+    padding: 30px 0; border-top: 1px solid var(--panel-light); color: var(--text-faint);
+    font-size: 0.85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 760px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .hero .window { order: -1; }
+    .features { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+    .esplit { grid-template-columns: 1fr; }
+    .emenu { border-right: none; border-bottom: 1px solid var(--panel-light); }
+    .contact-box { grid-template-columns: 1fr; }
+    .topbar .wrap { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">Quick<span>Site</span>Works</div>
+      <div class="topbar-right">
+        <div class="lang-switch">
+          <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+          <button id="btn-es" onclick="setLang('es')">ES</button>
+        </div>
+        <a class="call" href="tel:3127677948">(312) 767-7948</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>
+          <span class="en">Your business deserves more than a Facebook page.</span>
+          <span class="es">Tu negocio merece más que una página de Facebook.</span>
+        </h1>
+        <p class="sub">
+          <span class="en">I build simple, fast websites for local businesses in Chicago — hours, menu, photos, and a way for customers to actually find and reach you.</span>
+          <span class="es">Construyo sitios web simples y rápidos para negocios locales en Chicago — horarios, menú, fotos, y una forma para que los clientes te encuentren y te contacten.</span>
+        </p>
+        <p class="location">
+          <span class="en">Based in Chicago, IL. Hablo español.</span>
+          <span class="es">Con sede en Chicago, IL. También hablo inglés.</span>
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="sms:3127677948">
+            <span class="en">Text me: (312) 767-7948</span>
+            <span class="es">Envíame un mensaje: (312) 767-7948</span>
+          </a>
+          <a class="btn btn-ghost" href="#example">
+            <span class="en">See an example</span>
+            <span class="es">Ver un ejemplo</span>
+          </a>
+        </div>
+      </div>
+      <div class="window">
+        <span class="tag"><span class="en">Live in about a week</span><span class="es">Listo en una semana</span></span>
+        <div class="chrome"><span></span><span></span><span></span></div>
+        <div class="screen">
+          <div class="block b1"></div>
+          <div class="block b2"></div>
+          <div class="block b3"></div>
+          <div class="row"><div class="block"></div><div class="block"></div><div class="block"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scallop"></div>
+
+  <section class="panel" id="example">
+    <div class="wrap">
+      <div class="section-head">
+        <h2><span class="en">Here's what a starter site looks like</span><span class="es">Así se ve un sitio inicial</span></h2>
+        <p>
+          <span class="en">A sample built for a fictional taquería — this is the kind of thing your customers would see when they search for you.</span>
+          <span class="es">Un ejemplo creado para una taquería ficticia — así es como tus clientes te verían cuando te busquen.</span>
+        </p>
+      </div>
+
+      <div class="example-frame">
+        <div class="bar">
+          <span></span><span></span><span></span>
+          <div class="url">🔒 taqueriaelsol.com</div>
+        </div>
+        <div class="body">
+          <div class="ehero">
+            <div class="rating">★ 4.8 · Google</div>
+            <h3>Taquería El Sol</h3>
+            <p class="addr">
+              <span class="en">Open daily 10am–9pm · 2200 W 26th St, Chicago</span>
+              <span class="es">Abierto todos los días 10am–9pm · 2200 W 26th St, Chicago</span>
+            </p>
+          </div>
+          <div class="esplit">
+            <div class="emenu">
+              <h4><span class="en">Menu</span><span class="es">Menú</span></h4>
+              <div class="menu-line"><span class="name">Tacos al Pastor (3)</span><span class="fill"></span><span class="price">$3.50</span></div>
+              <div class="menu-line"><span class="name">Quesadilla de Birria</span><span class="fill"></span><span class="price">$6.00</span></div>
+              <div class="menu-line"><span class="name">Elote Callejero</span><span class="fill"></span><span class="price">$4.00</span></div>
+              <div class="menu-line"><span class="name">Agua Fresca de Horchata</span><span class="fill"></span><span class="price">$2.50</span></div>
+            </div>
+            <div class="ephotos">
+              <h4><span class="en">Photos</span><span class="es">Fotos</span></h4>
+              <div class="photo-grid">
+                <div class="photo-card p1"><span class="en">Tacos al pastor</span><span class="es">Tacos al pastor</span></div>
+                <div class="photo-card p2"><span class="en">Fresh guacamole</span><span class="es">Guacamole fresco</span></div>
+                <div class="photo-card p3"><span class="en">Dining room</span><span class="es">Comedor</span></div>
+                <div class="photo-card p4"><span class="en">Weekend specials</span><span class="es">Especiales del fin de semana</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="equote">
+            <span class="stars">★★★★★</span>
+            <span class="en">"Best tacos in the neighborhood, and now it's easy to find their hours online." — Google review</span>
+            <span class="es">"Los mejores tacos del barrio, y ahora es fácil encontrar sus horarios en línea." — Reseña de Google</span>
+          </div>
+          <div class="efooter">
+            <span class="en">📍 2200 W 26th St, Chicago, IL</span>
+            <span class="es">📍 2200 W 26th St, Chicago, IL</span>
+            <span><span class="en">Open now</span><span class="es">Abierto ahora</span></span>
+          </div>
+        </div>
+      </div>
+      <p class="example-caption">
+        <span class="en">Sample layout — your site is built around your business, your photos, and your menu.</span>
+        <span class="es">Diseño de muestra — tu sitio se construye alrededor de tu negocio, tus fotos y tu menú.</span>
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="#E7A93E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><span class="en">Loads fast and works on any phone — that's how most people will find you.</span><span class="es">Carga rápido y funciona en cualquier teléfono — así es como la mayoría de la gente te encontrará.</span></p>
+        </div>
+        <div class="feature">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="#E7A93E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><span class="en">Menu, hours, and photos updated whenever you need — just call or text me.</span><span class="es">Menú, horarios y fotos actualizados cuando lo necesites — solo llama o envía un mensaje.</span></p>
+        </div>
+        <div class="feature">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="#E7A93E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><span class="en">Bilingual pages available — English and Spanish, built by someone who speaks both.</span><span class="es">Páginas bilingües disponibles — inglés y español, hechas por alguien que habla ambos.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2><span class="en">Simple pricing, no surprises</span><span class="es">Precios simples, sin sorpresas</span></h2>
+        <p><span class="en">Start with the managed plan, or buy your site outright whenever you're ready.</span><span class="es">Empieza con el plan administrado, o compra tu sitio directamente cuando estés listo.</span></p>
+      </div>
+
+      <div class="plans">
+        <div class="plan recommended">
+          <div class="note"><span class="en">Most owners start here</span><span class="es">La mayoría empieza aquí</span></div>
+          <h3><span class="en">Managed One-Page</span><span class="es">Página Administrada</span></h3>
+          <div class="price">$150 <span><span class="en">/ month</span><span class="es">/ mes</span></span></div>
+          <ul>
+            <li><span class="en">One page: your info, photos, and menu</span><span class="es">Una página: tu información, fotos y menú</span></li>
+            <li><span class="en">I handle every update — hours, promos, specials</span><span class="es">Yo hago cada actualización — horarios, promociones, especiales</span></li>
+            <li><span class="en">Hosting and domain included</span><span class="es">Hosting y dominio incluidos</span></li>
+            <li><span class="en">Cancel anytime, or buy full ownership for $500</span><span class="es">Cancela cuando quieras, o compra la propiedad total por $500</span></li>
+          </ul>
+        </div>
+        <div class="plan">
+          <h3><span class="en">One-Page Site</span><span class="es">Sitio de Una Página</span></h3>
+          <div class="price">$500 <span><span class="en">one-time</span><span class="es">pago único</span></span></div>
+          <ul>
+            <li><span class="en">Same one-page site, fully handed over to you</span><span class="es">El mismo sitio, entregado por completo a ti</span></li>
+            <li><span class="en">I walk you through the basics — domain, hosting</span><span class="es">Te explico lo básico — dominio, hosting</span></li>
+            <li><span class="en">30 days of free changes after handoff</span><span class="es">30 días de cambios gratis después de la entrega</span></li>
+            <li><span class="en">After that, updates billed per request</span><span class="es">Después, las actualizaciones se cobran por solicitud</span></li>
+          </ul>
+        </div>
+        <div class="plan">
+          <h3><span class="en">Full Website</span><span class="es">Sitio Completo</span></h3>
+          <div class="price">$1,000 <span><span class="en">one-time</span><span class="es">pago único</span></span></div>
+          <ul>
+            <li><span class="en">Multiple pages: home, about, menu, reviews</span><span class="es">Varias páginas: inicio, nosotros, menú, reseñas</span></li>
+            <li><span class="en">Photo gallery and bilingual pages</span><span class="es">Galería de fotos y páginas bilingües</span></li>
+            <li><span class="en">30 days of free changes after handoff</span><span class="es">30 días de cambios gratis después de la entrega</span></li>
+            <li><span class="en">One-time cost, no ongoing fee</span><span class="es">Costo único, sin cargo mensual</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2><span class="en">Let's get your business online</span><span class="es">Pongamos tu negocio en línea</span></h2>
+          <p class="sub"><span class="en">Tell me a bit about your business and what you'd like on your site. I'll follow up with a couple of questions and a rough timeline.</span><span class="es">Cuéntame un poco sobre tu negocio y qué te gustaría en tu sitio. Te haré un par de preguntas y un tiempo estimado.</span></p>
+          <p class="lang-note"><span class="en">Hablo español — feel free to text in either language.</span><span class="es">Hablo español — escríbeme en el idioma que prefieras.</span></p>
+        </div>
+        <div class="buttons">
+          <a class="btn btn-primary" href="tel:3127677948"><span class="en">Call (312) 767-7948</span><span class="es">Llamar (312) 767-7948</span></a>
+          <a class="btn btn-ghost" href="sms:3127677948"><span class="en">Text (312) 767-7948</span><span class="es">Enviar mensaje (312) 767-7948</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <span>QuickSiteWorks — Chicago, IL</span>
+      <span><span class="en">Hablo español</span><span class="es">Also speak English</span></span>
+    </div>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.body.classList.toggle('lang-es', lang === 'es');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    }
+  </script>
+
+</body>
+</html>
